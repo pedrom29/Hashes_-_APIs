@@ -22,6 +22,8 @@ def build_web_page(data)
     html = 
     "<html>
     <head>
+    <title>API Nasa</title>
+    <h1>Los de la nasa<h1>
     </head>
     <body>
     <ul>"
