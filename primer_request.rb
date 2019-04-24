@@ -3,17 +3,16 @@ require 'net/http'
 require 'json'
 
 def request(address)
-    url = URI("http://jsonplaceholder.typicode.com/posts")
+    url = URI(address)
     http = Net::HTTP.new(url.host, url.port)
     request = Net::HTTP::Get.new(url)
     request["cache-control"] = 'no-cache'
-    request["Postman-Token"] = '2814cee2-f691-4a07-b9ed-ee99b262860e'
+    request["Postman-Token"] = '930aacdb-2b88-42fc-8cc8-6419022d2780'
 
     response = http.request(request)
-    body = JSON.parse response.read_body
+    JSON.parse response.read_body
 end
-
-body = request('http;//jsonplaceholder.typicode.com/posts')
+body = request('http://jsonplaceholder.typicode.com/posts') 
 body.each do |post|
-    puts post['tittle']
+    puts post['title']
 end

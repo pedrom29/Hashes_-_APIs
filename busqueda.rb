@@ -1,5 +1,4 @@
-n = ARGV
-
+busqueda = ARGV
 
 ventas = {
     Enero: 15000,
@@ -16,15 +15,14 @@ ventas = {
     Diciembre: 21000
 }
 
-ventas.each do |k,v|
-    if v == n[0].to_i
-        puts k
-    elsif v == n[1].to_i
-        puts k
-    elsif v == n[2].to_i
-        puts k
-    else 
-        puts "no encontrado"
+ventas = ventas.invert
+
+busqueda.each do |i|
+    resultado = ventas[i.to_i]
+
+    if resultado
+        puts resultado
+    else
+        puts "No encontrado"
     end
 end
-

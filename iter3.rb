@@ -19,6 +19,7 @@ def filter (ventas,n)
     ventas.each do |k,v|
         if  n <= v
             puts v
+            
         end
     end
 end 
