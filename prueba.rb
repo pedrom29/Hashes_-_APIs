@@ -22,11 +22,9 @@ body = body["photos"][0..5]
 
 
 def build_web_page(body)
-    html = "<html>\n<title>API Nasa</title>\n<head>\n<h1>API Nasa<h1>\n</head>\n<body>\n<ul>\n"
+    html = "<html>\n<title>API Nasa</title>\n<head>\n</head>\n<body>\n<h1>API Nasa<h1>\n<ul>\n"
     body.collect {|img|
-        html += "\t<li><img src=\"#{img["img_src"]}\"></li>\n"}
-    
-    
+    html += "\t<li><img src=\"#{img["img_src"]}\"></li>\n"}    
     html += "</ul>\n</body>\n</html>"
 
     File.write('index.html', html)
