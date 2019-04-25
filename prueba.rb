@@ -17,21 +17,26 @@ def request(address, api_key)
     response = http.request(request)
     JSON.parse response.read_body
 end
+body = request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000", "2y4Kfc1QTMpM5TYq4VkPn0Fd652aJpbp516DxTDD")
+body = body["photos"][0..5]
 
-def build_web_page(data)
 
-    web = "<ul>"
-    data.each do |photo|
-        web += "<li><img src=\"#{photo['img_src']}\">\n</li>"
-    end
-    web += "</ul>"
+def build_web_page(body)
+    html = "<html>\n<title>API Nasa</title>\n<head>\n<h1>API Nasa<h1>\n</head>\n<body>\n<ul>\n"
+    body.collect {|img|
+        html += "\t<li><img src=\"#{img["img_src"]}\"></li>\n"}
+    
+    
+    html += "</ul>\n</body>\n</html>"
 
-    File.write('index.html', web)
+    File.write('index.html', html)
 end
 
 
-
-
-data = request("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000", "2y4Kfc1QTMpM5TYq4VkPn0Fd652aJpbp516DxTDD")
-data = data["photos"][0..5]
-build_web_page(data)
+def photo_count(body)
+    hash = {}
+    body.collect{|cam| hash[cam['camera']['name']] = 1 + hash[cam['camera']['name']].to_i}
+    return hash
+end
+puts photo_count(body)
+build_web_page(body)
